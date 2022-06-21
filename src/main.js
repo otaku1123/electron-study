@@ -34,10 +34,26 @@ app.on('window-all-closed', function() {
 })
 
 ipc.handle('showMessageBox', (event, args) => {
-    console.log('Main showMessageBox');
+    return dialog.showMessageBox(mainWindow, {
+            type: 'info',
+            title: args.title,
+            message: args.message,
+        })
+        .then(result => {
+            return result;
+        });
 
-    const response = dialog.showMessageBox(mainWindow, {
-        title: 'message box title',
-        message: args.data,
-    });
+});
+
+ipc.handle('showOpenDialog', async(event, args) => {
+    return dialog.showOpenDialog(mainWindow, {
+            title: 'test',
+            properties: ['openFile'],
+        })
+        .then(result => {
+            if (result.canceled) return '';
+
+            return result.filePaths[0];
+        })
+});
 });

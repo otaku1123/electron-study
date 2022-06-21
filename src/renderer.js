@@ -1,7 +1,22 @@
 'use strict';
 
-let btnShowMessageBox = document.getElementById('btnShowMessageBox');
-console.log(btnShowMessageBox);
-btnShowMessageBox.addEventListener('click', () => {
-    window.electron.showMessageBox('test title', 'test body');
-});
+const textContent = document.getElementById('openDialogFilepath')
+
+document.getElementById('btnShowMessageBox')
+    .addEventListener('click', async() => {
+        await window.electron.showMessageBox('test title', 'test body')
+            .then(result => {
+                console.log(result);
+            });
+    });
+
+document.getElementById('btnShowOpenDialog')
+    .addEventListener('click', async() => {
+        await window.electron.showOpenDialog()
+            .then((result) => {
+                console.log(result);
+                textContent.innerText = result;
+            }).catch((err) => {
+                console.error(err);
+            });
+    });
