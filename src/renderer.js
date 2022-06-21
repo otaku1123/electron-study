@@ -28,3 +28,10 @@ document.getElementById('btnShowErrorBox')
                 console.log('done')
             });
     });
+
+document.getElementById('btnNotification')
+    .addEventListener('click', () => {
+        console.log('show notification');
+        new Notification('notification title', { body: 'notification body' })
+            .onclick = () => document.getElementById("output").innerText = 'notification clicked';
+    });
