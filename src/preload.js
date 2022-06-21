@@ -19,5 +19,11 @@ contextBridge.exposeInMainWorld('electron', {
         const result = await ipcRenderer.invoke('showOpenDialog');
         return result;
     },
+    showErrorBox: async(title, message) => {
+        const result = await ipcRenderer.invoke('showErrorBox', {
+            title: title,
+            message: message,
+        });
+        return result;
     }
 })

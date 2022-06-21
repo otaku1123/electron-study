@@ -56,4 +56,7 @@ ipc.handle('showOpenDialog', async(event, args) => {
             return result.filePaths[0];
         })
 });
+
+ipc.handle('showErrorBox', async(event, args) => {
+    return dialog.showErrorBox(args.title, args.message);
 });

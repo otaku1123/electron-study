@@ -20,3 +20,11 @@ document.getElementById('btnShowOpenDialog')
                 console.error(err);
             });
     });
+
+document.getElementById('btnShowErrorBox')
+    .addEventListener('click', async() => {
+        await window.electron.showErrorBox('error title', 'error message')
+            .then(result => {
+                console.log('done')
+            });
+    });
