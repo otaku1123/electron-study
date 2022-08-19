@@ -4,7 +4,15 @@ const textContent = document.getElementById('openDialogFilepath')
 
 document.getElementById('btnShowMessageBox')
     .addEventListener('click', async() => {
-        await window.electron.showMessageBox('test title', 'test body')
+        const options = {
+            type: 'none',
+            title: 'タイトル',
+            message: 'メッセージ',
+            detail: '説明文',
+            icon: null
+          };
+
+        await window.electron.showMessageBox(options)
             .then(result => {
                 console.log(result);
             });

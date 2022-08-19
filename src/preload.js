@@ -4,14 +4,18 @@ const {
 } = require('electron');
 
 contextBridge.exposeInMainWorld('electron', {
-    showMessageBox: async(title, message) => {
-        console.log(title);
-        // dialog.showMessageBox(null);
+    showMessageBox: async(options) => {
+        console.log(options.title);
         const result = await ipcRenderer.invoke(
-            'showMessageBox', {
-                title: title,
-                message: message,
-            }
+            'showMessageBox', options
+        );
+        return result;
+    },
+    showMessageBoxSync: async(options) => {
+        console.log(options.title);
+        const result = await ipcRenderer.invoke(
+            'showMessageBoxSync',
+            options
         );
         return result;
     },

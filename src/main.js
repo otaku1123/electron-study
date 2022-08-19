@@ -34,15 +34,28 @@ app.on('window-all-closed', function() {
 })
 
 ipc.handle('showMessageBox', (event, args) => {
+    // console.log(args);
+
+    const nativeImage = require('electron').nativeImage;
+    const imageInstance = nativeImage.createFromPath('./assets/icon.png');
+    // const imageInstance = nativeImage.createEmpty();
     return dialog.showMessageBox(mainWindow, {
-            type: 'info',
-            title: args.title,
-            message: args.message,
-        })
+        type: args.type,
+        title: args.title,
+        message: args.message,
+        detail: args.detail,
+        icon: imageInstance
+    })
         .then(result => {
             return result;
         });
+});
 
+ipc.handle('showMessageBoxSync', (event, args) => {
+    return dialog.showMessageBoxSync(mainWindow, args)
+        .then(result => {
+            return result;
+        });
 });
 
 ipc.handle('showOpenDialog', async(event, args) => {
